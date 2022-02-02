@@ -2,7 +2,7 @@
 # Pre Install
 # -------==========-------
 # Do everthing in Setup.sh script.
-wget https://raw.githubusercontent.com/Hamid-Najafi/DevOps-Notebook/master/Apps/BigBlueButton/Installation/Scripts/PreInstall.sh
+wget https://raw.githubusercontent.com/Hamid-Najafi/DEI/PreInstall.sh
 chmod +x PreInstall.sh
 sudo ./PreInstall.sh
 
@@ -19,13 +19,13 @@ docker login
 # -------==========-------
 # Clone Repos
 # -------==========-------
-sudo git clone https://github.com/Hamid-Najafi/DevOps-Notebook.git
+sudo git clone https://github.com/Hamid-Najafi/DEI.git
 
 # -------==========-------
 # Setup Traefik
 # -------==========-------
 mkdir -p ~/docker
-cp -R ~/DevOps-Notebook/Apps/Traefik ~/docker/traefik
+cp -R ~/DEI/Traefik ~/docker/traefik
 cd ~/docker/traefik 
 nano docker-compose.yml 
 # Set Host
@@ -34,28 +34,13 @@ docker network create web
 docker-compose up -d
 
 # -------==========-------
-# Setup Monitoring (optional)
-# -------==========-------
-sudo git clone https://github.com/Hamid-Najafi/DevOps-Notebook.git
-mkdir -p ~/docker/monitoring
-sudo cp -r ~/DevOps-Notebook/Apps/Monitoring/Master/* ~/docker/monitoring
-cd  ~/docker/monitoring
-sudo nano prometheus/prometheus.yml
-# change server URLs if needed
-# GF_SERVER_ROOT_URL=http://grafana.goldenstarc.ir
-# "traefik.http.routers.grafana.rule=Host(`grafana.goldenstarc.ir`)"
-# sudo nano docker-compose.yml 
-docker-compose up -d
-
-# -------==========-------
 # Setup Virgol
 # -------==========-------
 # 1. Restore Database Using TablePlus App
 # 2. Start Virgol Services
-mkdir -p ~/docker/virgol
-cp ~/DevOps-Notebook/Apps/Virgol/PaaS/docker-compose.yml ~/docker/virgol/
-# cp ~/DevOps-Notebook/Apps/Virgol/PaaS/DEI/docker-compose.yml ~/docker/virgol/
-cd ~/docker/virgol
+mkdir -p ~/docker/website
+cp ~/DEI/Website/docker-compose.yml ~/docker/website/
+cd ~/docker/website
 docker-compose up -d
 # -------==========-------
 # Setup Services
