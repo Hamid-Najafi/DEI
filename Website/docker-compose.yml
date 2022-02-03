@@ -1,7 +1,7 @@
 version: "3.5"
 services:
   virgol:
-    image: goldenstarc/virgol:latest-dei
+    image: goldenstarc/dei:latest
     restart: always
     container_name: virgol_main
     volumes:
@@ -16,7 +16,7 @@ services:
       - VIRGOL_DATABASE_NAME=Virgol
       - VIRGOL_DATABASE_USER=postgres
       - VIRGOL_DATABASE_PASSWORD=0AqcxEOBTZ3xZ@EZ#ERE
-      - VIRGOL_MOODLE_BASE_URL=virgol_moodle
+      - VIRGOL_MOODLE_BASE_URL=https://m-dei.vir-gol.ir
       - VIRGOL_MOODLE_TOKEN=6b2d40dc140ba630aa05cba20ab5acc5
       - VIRGOL_Default_SMSProvider=Faraz
       - VIRGOL_FARAZAPI_URL=http://rest.ippanel.com
