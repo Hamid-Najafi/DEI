@@ -31,11 +31,13 @@
     Update local (First name) : On Every login
     Update external (First name) : Never
     Data mapping (Surname) : sn
+
     Update local (Surname) : On Every login
     Update external (Surname) : Never
     Data mapping (Email address) : mail
     Update local (Email address) : On Every login
     Update external (Email address) : Never
+
     Data mapping (ID number) : employeeNumber
     Update local (ID number) : On Every login
     Update external (ID number) : Never
@@ -69,6 +71,7 @@
      Authorised users only  : true
 # -------==========-------
 7 - https://m-dei.vir-gol.ir/admin/webservice/service_functions.php?id=2
+  Create Emailxternal Service and add this functions to it.
   Add these Functions to Service that Create in previous Part :
     core_course_create_categories
     core_course_create_courses
@@ -104,10 +107,6 @@ Authorize external service for webservice user
   Service : apiservice
 # -------==========-------
 11 - Set token in Virgol Database || Docker-Compose
-# -------==========-------
-12 - (If there is any) Import LDAP user in moodle
-  docker exec -it virgol_moodle sh
-  php ./bitnami/moodle/auth/ldap/cli/sync_users.php
 # -------==========-------
 # Customize Moodle
 # -------==========-------

@@ -7,7 +7,7 @@ services:
     volumes:
       - virgolData:/app/BulkData
     environment:
-      - ASPNETCORE_URLS=http://+ # ;https://+
+      - ASPNETCORE_URLS=http://+
       - ASPNETCORE_ENVIRONMENT=Production
       - NODE_ENV=production
       - VIRGOL_SERVER_ROOT_URL=https://dei.razaviedu.ir
@@ -30,10 +30,6 @@ services:
       - VIRGOL_LDAP_USER_ADMIN=cn=admin,dc=legace,dc=ir
       - VIRGOL_LDAP_PASSWORD=OpenLDAPpass.24
       - VIRGOL_TZ=Asia/Tehran
-      # - VIRGOL_SMTP_HOST
-      # - VIRGOL_SMTP_PASS
-      # - VIRGOL_SMTP_PORT
-      # - VIRGOL_SMTP_USER
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.virgol.rule=Host(`dei.razaviedu.ir`)"
@@ -56,7 +52,6 @@ services:
       - "5432:5432"
     restart: always
     environment:
-      # - POSTGRES_DB=virgol
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=0AqcxEOBTZ3xZ@EZ#ERE
     volumes:
@@ -64,25 +59,6 @@ services:
     networks:
       - virgol
       - web
-  # pgadmin4:
-  #   image: dpage/pgadmin4
-  #   container_name: virgol_pgadmin4
-  #   environment:
-  #     - PGADMIN_DEFAULT_EMAIL=admin@vir-gol.ir
-  #     - PGADMIN_DEFAULT_PASSWORD=!LuLukRcICExo5AkjM1G
-  #   restart: always
-  #   depends_on:
-  #     - postgres
-  #   labels:
-  #     - "traefik.enable=true"
-  #     - "traefik.http.routers.pgadmin.rule=Host(`pgadmin-dei.vir-gol.ir`)"
-  #     - "traefik.http.services.pgadmin.loadbalancer.server.port=80"
-  #     - "traefik.http.routers.pgadmin.entrypoints=secure"
-  #     - "traefik.http.routers.pgadmin.tls.certresolver=letsencrypt"
-  #     - "traefik.docker.network=web"
-  #   networks:
-  #     - virgol
-  #     - web
   moodle:
     image: 'goldenstarc/moodle:3.9.1-debian-10-r18'
     container_name: virgol_moodle
@@ -108,8 +84,6 @@ services:
     volumes:
       - moodle:/bitnami/moodle
       - moodleData:/bitnami/moodledata
-      # - '/docker/moodle-bitnami:/bitnami/moodle'
-      # - '/docker/moodle-data-bitnami:/bitnami/moodledata'
     depends_on:
       - mariadb
       - openldap
@@ -128,28 +102,8 @@ services:
       - MARIADB_PASSWORD=N@Oha^UL#fLZ4kgcmVsm
     volumes:
       - mariaDb:/bitnami/mariadb
-      # - '/docker/mariadb-bitnami:/bitnami/mariadb'
     networks:
       - virgol
-  # phpmyadmin:
-  #   image: 'docker.io/bitnami/phpmyadmin:5-debian-10'
-  #   container_name: virgol_phpmyadmin
-  #   restart: always
-  #   environment:
-  #     - PMA_ABSOLUTE_URI=https://phpmyadmin.vir-gol.ir/
-  #     - PMA_HOST=mariadb
-  #   labels:
-  #     - "traefik.enable=true"
-  #     - "traefik.http.routers.phpmyadmin.rule=Host(`phpmyadmin-dei.vir-gol.ir`)"
-  #     - "traefik.http.services.phpmyadmin.loadbalancer.server.port=8080"
-  #     - "traefik.http.routers.phpmyadmin.entrypoints=secure"
-  #     - "traefik.http.routers.phpmyadmin.tls.certresolver=letsencrypt"
-  #     - "traefik.docker.network=web"
-  #   depends_on:
-  #     - mariadb
-  #   networks:
-  #     - virgol
-  #     - web
   openldap:
     image: goldenstarc/extended-openldap
     container_name: virgol_openldap
@@ -163,26 +117,6 @@ services:
     networks:
       - virgol
       - web
-  # phpldapadmin:
-  #   image: osixia/phpldapadmin
-  #   container_name: virgol_phpldapadmin
-  #   environment:
-  #     - PHPLDAPADMIN_LDAP_HOSTS=openldap
-  #     - PHPLDAPADMIN_HTTPS=false
-  #     - PHPLDAPADMIN_LDAP_CLIENT_TLS=false
-  #   restart: always
-  #   depends_on:
-  #     - openldap
-  #   labels:
-  #     - "traefik.enable=true"
-  #     - "traefik.http.routers.phpldapadmin.rule=Host(`phpldapadmin-dei.vir-gol.ir`)"
-  #     - "traefik.http.services.phpldapadmin.loadbalancer.server.port=80"
-  #     - "traefik.http.routers.phpldapadmin.entrypoints=secure"
-  #     - "traefik.http.routers.phpldapadmin.tls.certresolver=letsencrypt"
-  #     - "traefik.docker.network=web"
-  #   networks:
-  #     - web
-  #     - virgol
 networks:
   virgol:
     internal: true

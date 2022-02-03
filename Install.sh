@@ -45,85 +45,27 @@ docker-compose up -d
 # -------==========-------
 # Setup Services
 # -------==========-------
-1. Config postgres settings
-2. Check Openldap is working
-3. Postman: Sync LDAP with Virgol
-4. Restore moodle settings as documented 
-5. Restore moodle ldap users
+1. Restore postgres DB
+
+2. Config postgres settings
+
+3. Check Openldap is working
+
+4. Postman: Sync LDAP with Virgol
+
+5. Restore moodle settings as documented 
+
+6. Restore moodle ldap users 
 docker exec -it virgol_moodle php ./bitnami/moodle/auth/ldap/cli/sync_users.php
-6. Database: Set moodle token (SiteSettings)
-7. Database: Set all moodleId => AdminDetails & Schools to -1, AspNetUsers to 0
-8. Postman: Sync Virgol Moodle ID
-9. Postman: Recreate School Moodle (if want to fix admin without school, leave desiredSchoolId with random number)
-0. Check
+
+7. Database: Set moodle token (SiteSettings)
+
+8. Database: Set all moodleId => AdminDetails & Schools to -1, AspNetUsers to 0
+
+9. Postman: Sync Virgol Moodle ID
+
+10. Postman: Recreate School Moodle (if want to fix admin without school, leave desiredSchoolId with random number)
+
+11. Check
     Users: https://moodle.vir-gol.ir/admin/user.php
     Courses & Categories: https://moodle.vir-gol.ir/course/management.php
-
-
-# -------==========-------
-# Setup Virgol Landing
-# -------==========-------
-mkdir -p ~/docker/virgol-landing
-cp ~/DevOps-Notebook/Apps/Virgol/VirgolLanding/docker-compose.yml ~/docker/virgol-landing/
-cd ~/docker/virgol-landing
-docker-compose up -d
-
-# -------==========-------
-# Optimize Services
-# -------==========-------
-# PostgreSQL configuration builder
-http://pgconfigurator.cybertec.at/
-https://www.pgconfig.org/
-https://pgtune.leopard.in.ua/#/
-
-# get CPU(s)
-# CPUs = threads per core * cores per socket * sockets
-lscpu | grep -E '^Thread|^Core|^Socket|^CPU\('
-
-# Add this to generated config
-listen_addresses = '*'
-
-docker cp virgol_db:/var/lib/postgresql/data/postgresql.conf .
-docker exec -it virgol_db sh
-mv /var/lib/postgresql/data/postgresql.conf /var/lib/postgresql/data/postgresql.conf.backup
-cat <<EOF > /var/lib/postgresql/data/postgresql.conf
-# PASTE CONFIG HERE
-EOF
-exit
-docker restart virgol_db
-# openLDAP
-
-# mariaDB
-
-# -------==========-------
-# Build Virgol
-# -------==========-------
-sudo git clone https://oauth2:uRiq-GRyEZrdyvaxEknZ@gitlab.com/saleh_prg/lms-with-moodle.git
-cd lms-with-moodle/
-git config --global user.email Hamid.Najafi@email.com
-git config --global user.name Hamid Najafi
-sudo bash build.sh 1.8.0
-
-cd ~/docker/virgol/ && docker-compose pull && docker-compose up -d
-
-# On virgol server
-mkdir docker/virgol-landing/
-nano docker-compose.yml
-put docker-compose here
-
-# On complier server
-sudo git clone https://oauth2:uRiq-GRyEZrdyvaxEknZ@gitlab.com/saleh_prg/virgollanding.git 
-cd virgollanding/
-sudo bash build.sh 1.1
-
-# -------==========-------
-# Top SQLs
-# -------==========-------
-SELECT * FROM "AspNetUsers" WHERE "UserName" = '0888584628'
-UPDATE "AspNetUsers" SET "Moodle_Id" = 0
-SELECT * FROM "AspNetUsers" WHERE "Moodle_Id" != 0
-
-# -------==========-------
-# Clear docker logs
-# -------==========-------
-echo "" > $(docker inspect --format='{{.LogPath}}' virgol_main)
