@@ -39,14 +39,4 @@ echo "--------------------------"
 echo "--------------------------"
 echo "Setting APT Proxy"
 echo "--------------------------"
-cat >> /etc/apt/apt.conf.d/proxy.conf << EOF
-Acquire::http::Proxy "http://admin:Squidpass.24@hr.hamid-najafi.ir:3128";
-Acquire::https::Proxy "http://admin:Squidpass.24@hr.hamid-najafi.ir:3128";
-EOF
-
-echo "--------------------------"
-echo "Verify Proxy"
-echo "--------------------------"
-curl -x http://admin:Squidpass.24@hr.hamid-najafi.ir:3128/ -L http://panel.vir-gol.ir
-
-echo "Done!"
+# set HTTP Proxy for APT
