@@ -8,8 +8,8 @@ sed -i 's/Prompt=lts/Prompt=never/g' /etc/update-manager/release-upgrades
 # echo "--------------------------"
 # echo "Setting HTTP Proxy"
 # echo "--------------------------"
-# echo -e "http_proxy=http://admin:Squidpass.24@hr.hamid-najafi.ir:3128/\nhttps_proxy=http://admin:Squidpass.24@hr.hamid-najafi.ir:3128/" | sudo tee -a /etc/environment
-
+# use any HTTP or DNS Proxy, its required to install Package and apps like Docker
+# shecan.ir
 echo "--------------------------"
 echo "Setting APT Sources List"
 echo "--------------------------"
@@ -34,13 +34,7 @@ sudo apt install -y bmon ncdu
 echo "--------------------------"
 echo "Setting Docker Proxy"
 echo "--------------------------"
-sudo mkdir -p /etc/systemd/system/docker.service.d
-cat >> /etc/systemd/system/docker.service.d/http-proxy.conf << EOF
-[Service]
-Environment="HTTP_PROXY=http://admin:Squidpass.24@hr.hamid-najafi.ir:3128"
-Environment="HTTPS_PROXY=http://admin:Squidpass.24@hr.hamid-najafi.ir:3128"
-Environment="NO_PROXY=localhost,127.0.0.1,docker-registry.example.com,.corp"
-EOF
+# set HTTP Proxy for docker
 
 echo "--------------------------"
 echo "Setting APT Proxy"
