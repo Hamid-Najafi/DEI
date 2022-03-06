@@ -34,7 +34,7 @@ docker network create web
 docker-compose up -d
 
 # -------==========-------
-# Setup Virgol
+# Setup Website
 # -------==========-------
 # 1. Restore Database Using TablePlus App
 # 2. Start Virgol Services
@@ -67,11 +67,11 @@ B) Sync Virgol Moodle ID
     Courses & Categories: https://moodle.vir-gol.ir/course/management.php
 
 # -------==========-------
-# Restore Old DB, Services
+# Post install ToDo
 # -------==========-------
-1. Restore postgres DB
+1. Restore postgres DB (backup is in main directory)
 
-2. Config postgres settings
+2. Config postgres settings (any optimization if needed)
 
 3. Check Openldap is working
 
