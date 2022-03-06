@@ -6,7 +6,7 @@ echo "--------------------------"
 sed -i 's/Prompt=lts/Prompt=never/g' /etc/update-manager/release-upgrades
 
 # echo "--------------------------"
-# echo "Setting HTTP Proxy"
+# echo "Setting Proxy"
 # echo "--------------------------"
 # use any HTTP or DNS Proxy, its required to install Package and apps like Docker
 # shecan.ir
