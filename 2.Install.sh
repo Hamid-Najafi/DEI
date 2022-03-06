@@ -77,7 +77,7 @@ B) Sync Virgol Moodle ID
 
 4. Postman: Sync LDAP with Virgol
 
-5. Restore moodle settings as documented 
+5. Restore moodle settings as documented (Moodle-Postinstall.sh)
 
 6. Restore moodle ldap users 
 docker exec -it virgol_moodle php ./bitnami/moodle/auth/ldap/cli/sync_users.php
@@ -93,6 +93,6 @@ UPDATE "AspNetUsers" SET "Moodle_Id" = 0;
 
 10. Postman: Recreate School Moodle (if want to fix admin without school, leave desiredSchoolId with random number)
 
-11. Check
+11. Verify
     Users: https://moodle.vir-gol.ir/admin/user.php
     Courses & Categories: https://moodle.vir-gol.ir/course/management.php
